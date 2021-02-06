@@ -1,11 +1,5 @@
 **/.gradle
 **/.idea
 **/build
-**.iml
 **.class
-**.db
-**/out
-**.log
-**/logs
-**.xlsx
 **.jar
