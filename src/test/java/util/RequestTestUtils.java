@@ -15,8 +15,8 @@ public class RequestTestUtils {
         int portNumber = 8282;
         StringBuilder requestBuilder = new StringBuilder();
 
-        Socket s = new Socket(hostName, portNumber);
-            DataOutputStream dout = new DataOutputStream(s.getOutputStream());
+        Socket socket = new Socket(hostName, portNumber);
+            DataOutputStream dout = new DataOutputStream(socket.getOutputStream());
             dout.writeBytes(requestUri+" HTTP/1.1\n");
             dout.writeBytes("Host: localhost:8282\n");
             dout.writeBytes("Connection: keep-alive\n");
@@ -25,7 +25,7 @@ public class RequestTestUtils {
             String fromServer;
 
             try (BufferedReader in = new BufferedReader(
-                    new InputStreamReader(s.getInputStream()))) {
+                    new InputStreamReader(socket.getInputStream()))) {
 
                 while ((fromServer = in.readLine()) != null) {
                     requestBuilder.append(fromServer).append("\r\n");
@@ -33,7 +33,7 @@ public class RequestTestUtils {
                         break;
                 }
             } catch (Exception e) {
-//                log.error(e.getLocalizedMessage());
+             System.out.println(e.getLocalizedMessage());
             }
         return requestBuilder.toString();
     }
