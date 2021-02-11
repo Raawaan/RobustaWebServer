@@ -1,8 +1,10 @@
 package request;
 
+import lombok.Getter;
+
 import java.util.HashMap;
 import java.util.Map;
-
+@Getter
 public class Request {
 
     private String method;
@@ -10,7 +12,7 @@ public class Request {
     private Map<String, String> headers = new HashMap<>();
     private Map<String, String> params = new HashMap<>();
 
-    Request(String requestData) {
+    public Request(String requestData) {
         processRequestData(requestData);
     }
 
@@ -63,22 +65,6 @@ public class Request {
                     .split(": ");
             headers.put(headerLine[0], headerLine[1]);
         }
-    }
-
-    String getMethod() {
-        return method;
-    }
-
-    public String getHost() {
-        return host;
-    }
-
-    Map<String, String> getParams() {
-        return params;
-    }
-
-    public Map<String, String> getHeaders() {
-        return headers;
     }
 
     @Override

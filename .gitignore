@@ -1,5 +1,3 @@
-**/.gradle
-**/.idea
-**/build
-**.class
-**.jar
+.gradle
+.idea
+.build

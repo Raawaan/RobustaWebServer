@@ -8,7 +8,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import static java.lang.System.out;
-
 public class RobustaApp {
     public static void main(String[] args) {
         int portNumber = 8282;
