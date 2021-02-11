@@ -1,6 +1,6 @@
 package request;
 
-enum Method{
+enum Method {
     GET,
     POST
 }

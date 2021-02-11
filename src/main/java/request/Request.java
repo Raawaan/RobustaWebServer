@@ -1,9 +1,9 @@
 package request;
 
 import lombok.Getter;
-
 import java.util.HashMap;
 import java.util.Map;
+
 @Getter
 public class Request {
 

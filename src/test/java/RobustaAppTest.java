@@ -1,7 +1,6 @@
 import org.junit.Before;
 import org.junit.Test;
 import util.RequestTestUtils;
-
 import static org.junit.Assert.assertTrue;
 
 public class RobustaAppTest {
@@ -20,6 +19,7 @@ public class RobustaAppTest {
         assertTrue(response.contains("Boom!"));
 
     }
+
     @Test
     public void customGetRequest() throws Exception {
         String response = requestTestUtils.sendRequest("GET /?custom-message=helloo");
@@ -27,6 +27,7 @@ public class RobustaAppTest {
         assertTrue(response.contains("helloo"));
 
     }
+
     @Test
     public void postRequest() throws Exception {
         String response = requestTestUtils.sendRequest("POST /?custom-message=helloo");
