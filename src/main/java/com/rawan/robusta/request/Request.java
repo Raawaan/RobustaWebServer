@@ -66,7 +66,7 @@ public class Request {
 
     @Override
     public String toString() {
-        return "robusta.web.server.request.Request {\n" +
+        return "Request {\n" +
                 "method= " + method + ",\n" +
                 "host= " + host + ",\n" +
                 "headers= " + headers +

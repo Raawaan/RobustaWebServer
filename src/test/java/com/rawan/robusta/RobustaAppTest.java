@@ -40,7 +40,7 @@ public class RobustaAppTest {
     @Test
     public void postRequest() throws Exception {
         String response = requestTestUtils.sendRequest("POST /?custom-message=helloo");
-        assertTrue(response.contains("400 Bad robusta.web.server.request"));
+        assertTrue(response.contains("400 Bad request"));
         assertTrue(response.contains("Sorry we serve 'GET' requests only!"));
     }
 
@@ -59,7 +59,7 @@ public class RobustaAppTest {
                 countDownLatch);
 
         startThread("POST /?custom-message=helloo",
-                "400 Bad robusta.web.server.request",
+                "400 Bad request",
                 "Sorry we serve 'GET' requests only!",
                 countDownLatch);
 
