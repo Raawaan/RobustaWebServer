@@ -21,6 +21,12 @@ public class RobustaAppTest {
         assertTrue(response.contains("200 OK"));
         assertTrue(response.contains("Boom!"));
     }
+    @Test
+    public void gtRequest() throws Exception {
+        String response = requestTestUtils.sendRequest("GET /hello");
+        assertTrue(response.contains("200 OK"));
+        assertTrue(response.contains("Boom!"));
+    }
 
     @Test
     public void customGetRequest() throws Exception {

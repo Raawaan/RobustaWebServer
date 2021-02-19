@@ -1,6 +1,8 @@
 package request;
 
 import lombok.Getter;
+
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,19 +28,15 @@ public class Request {
 
     private void processParams(String line) {
         String paramLines = line.split(" ")[1];
-        if (!paramLines.equals("/")) {
-            String[] filteredParams = paramLines
-                    .chars()
-                    .filter(f -> f != '/' && f != '?')
-                    .collect(StringBuilder::new,
-                            StringBuilder::appendCodePoint,
-                            StringBuilder::append)
-                    .toString()
-                    .split("&");
-            for (int i = 0; i < filteredParams.length; i++) {
-                String[] paramLine = filteredParams[i].split("=");
-                params.put(paramLine[0], paramLine[1]);
-            }
+        if (!paramLines.equals("/") && paramLines.contains("?")) {
+            Arrays.stream(
+                    paramLines
+                            .subSequence(paramLines.indexOf("?") + 1, paramLines.length())
+                            .toString()
+                            .split("&")
+            )
+                    .map(s -> s.split("="))
+                    .forEach(strings ->params.put(strings[0], strings[1]));
         }
     }
 
@@ -51,7 +49,6 @@ public class Request {
                         StringBuilder::appendCodePoint,
                         StringBuilder::append)
                 .toString();
-
     }
 
     private void processHeaders(String[] lines) {
