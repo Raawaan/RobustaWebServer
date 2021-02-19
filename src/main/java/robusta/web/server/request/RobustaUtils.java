@@ -1,4 +1,4 @@
-package request;
+package robusta.web.server.request;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,7 +8,7 @@ import static java.lang.System.out;
 public class RobustaUtils {
     private static final String CUSTOM_MESSAGE = "custom-message";
     private static final String OK_RESPONSE = "200 OK";
-    private static final String BAD_REQUEST_RESPONSE = "400 Bad request";
+    private static final String BAD_REQUEST_RESPONSE = "400 Bad robusta.web.server.request";
     private static final String GET_REQUESTS_ONLY_MESSAGE = "Sorry we serve 'GET' requests only!";
     private static final String DEFAULT_MESSAGE = "Boom!";
 

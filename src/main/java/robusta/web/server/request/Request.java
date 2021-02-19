@@ -1,4 +1,4 @@
-package request;
+package robusta.web.server.request;
 
 import lombok.Getter;
 
@@ -66,7 +66,7 @@ public class Request {
 
     @Override
     public String toString() {
-        return "request.Request {\n" +
+        return "robusta.web.server.request.Request {\n" +
                 "method= " + method + ",\n" +
                 "host= " + host + ",\n" +
                 "headers= " + headers +

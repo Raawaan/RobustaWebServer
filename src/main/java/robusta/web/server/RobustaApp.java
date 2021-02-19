@@ -1,5 +1,7 @@
-import request.Request;
-import request.RobustaUtils;
+package robusta.web.server;
+
+import robusta.web.server.request.Request;
+import robusta.web.server.request.RobustaUtils;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;

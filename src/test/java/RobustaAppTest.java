@@ -1,5 +1,6 @@
 import org.junit.BeforeClass;
 import org.junit.Test;
+import robusta.web.server.RobustaApp;
 import util.RequestTestUtils;
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
@@ -38,7 +39,7 @@ public class RobustaAppTest {
     @Test
     public void postRequest() throws Exception {
         String response = requestTestUtils.sendRequest("POST /?custom-message=helloo");
-        assertTrue(response.contains("400 Bad request"));
+        assertTrue(response.contains("400 Bad robusta.web.server.request"));
         assertTrue(response.contains("Sorry we serve 'GET' requests only!"));
     }
 
@@ -57,7 +58,7 @@ public class RobustaAppTest {
                 countDownLatch);
 
         startThread("POST /?custom-message=helloo",
-                "400 Bad request",
+                "400 Bad robusta.web.server.request",
                 "Sorry we serve 'GET' requests only!",
                 countDownLatch);
 
