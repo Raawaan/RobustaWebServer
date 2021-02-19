@@ -1,7 +1,8 @@
+package com.rawan.robusta;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
-import robusta.web.server.RobustaApp;
-import util.RequestTestUtils;
+import com.rawan.robusta.util.RequestTestUtils;
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
