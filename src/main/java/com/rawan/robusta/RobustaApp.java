@@ -2,11 +2,14 @@ package com.rawan.robusta;
 
 import com.rawan.robusta.request.Request;
 import com.rawan.robusta.request.RobustaUtils;
+
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+
 import static java.lang.System.out;
 
 public class RobustaApp {
@@ -15,17 +18,31 @@ public class RobustaApp {
         RobustaUtils robustaUtils = new RobustaUtils();
         try (ServerSocket serverSocket = new ServerSocket(portNumber)) {
             while (true) {
-                try (Socket clientSocket = serverSocket.accept();
-                     BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                     OutputStream out = clientSocket.getOutputStream()) {
-                    Request request = robustaUtils.handleRequest(in);
-                    robustaUtils.handleResponse(out, request);
-                } catch (Exception e) {
-                    out.println("Inner exception" + e.getLocalizedMessage());
-                }
+                out.println("Loop");
+                Socket clientSocket = serverSocket.accept();
+                out.println("Accept");
+
+                new Thread(() -> {
+                    System.out.println("Hi " + Thread.currentThread().getName());
+                    try (BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                         OutputStream out = clientSocket.getOutputStream()) {
+
+                        Request request = robustaUtils.handleRequest(in);
+
+                        robustaUtils.handleResponse(out, request);
+
+                        clientSocket.close();
+
+                    } catch (IOException | InterruptedException e) {
+                        e.printStackTrace();
+                    } finally {
+                        System.out.println("Bye " + Thread.currentThread().getName());
+                    }
+                }).start();
             }
         } catch (Exception e) {
-            out.println("Exception occurs" + e.getLocalizedMessage());
+            out.println("Exception" + e.getLocalizedMessage());
         }
     }
 }
+

@@ -33,6 +33,7 @@ public class RobustaAppTest {
     @Test
     public void customGetRequest() throws Exception {
         String response = requestTestUtils.sendRequest("GET /?custom-message=helloo");
+        Thread.sleep(1000);
         assertTrue(response.contains("200 OK"));
         assertTrue(response.contains("helloo"));
     }
@@ -63,7 +64,7 @@ public class RobustaAppTest {
                 "Sorry we serve 'GET' requests only!",
                 countDownLatch);
 
-        boolean isCompleted = countDownLatch.await(100, TimeUnit.MILLISECONDS);
+        boolean isCompleted = countDownLatch.await(2000, TimeUnit.MILLISECONDS);
         assertTrue(isCompleted);
 
     }

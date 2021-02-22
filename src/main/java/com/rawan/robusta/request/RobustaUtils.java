@@ -24,10 +24,11 @@ public class RobustaUtils {
     }
 
     public void handleResponse(OutputStream out, Request request) throws IOException, InterruptedException {
+        System.out.println("Sending response from " +Thread.currentThread().getName());
         if (!request.getMethod().equals(Method.GET.name())) {
             errorMessageResponse(out);
         } else if (request.getParams().containsKey(CUSTOM_MESSAGE)) {
-            Thread.sleep(100);
+            Thread.sleep(1000);
             customMessageResponse(out, request.getParams().get(CUSTOM_MESSAGE));
         } else {
             defaultResponse(out);

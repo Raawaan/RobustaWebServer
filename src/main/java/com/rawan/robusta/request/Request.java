@@ -1,7 +1,6 @@
 package com.rawan.robusta.request;
 
 import lombok.Getter;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -70,6 +69,7 @@ public class Request {
                 "method= " + method + ",\n" +
                 "host= " + host + ",\n" +
                 "headers= " + headers +
+                "params= " + params +
                 "\n}";
     }
 }
