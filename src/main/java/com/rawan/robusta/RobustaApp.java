@@ -1,6 +1,7 @@
 package com.rawan.robusta;
 
 import com.rawan.robusta.request.Request;
+import com.rawan.robusta.request.RequestMapper;
 import com.rawan.robusta.request.RobustaUtils;
 
 import java.io.BufferedReader;
@@ -9,13 +10,14 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-
 import static java.lang.System.out;
 
 public class RobustaApp {
     public static void main(String[] args) {
         int portNumber = 8282;
-        RobustaUtils robustaUtils = new RobustaUtils();
+        RequestMapper requestMapper = new RequestMapper();
+        RobustaUtils robustaUtils = new RobustaUtils(requestMapper);
+
         try (ServerSocket serverSocket = new ServerSocket(portNumber)) {
             while (true) {
                 out.println("Loop");
@@ -33,7 +35,7 @@ public class RobustaApp {
 
                         clientSocket.close();
 
-                    } catch (IOException | InterruptedException e) {
+                    } catch (IOException e) {
                         e.printStackTrace();
                     } finally {
                         System.out.println("Bye " + Thread.currentThread().getName());

@@ -8,34 +8,52 @@ import java.util.Map;
 @Getter
 public class Request {
 
-    private String method;
+    private Method method;
     private String host;
     private Map<String, String> headers = new HashMap<>();
     private Map<String, String> params = new HashMap<>();
+    private Body body;
 
     public Request(String requestData) {
         processRequestData(requestData);
     }
 
     private void processRequestData(String requestData) {
-        String[] lines = requestData.split("\n");
-        method = lines[0].split(" ")[0];
+        String[] bodies = requestData.split("\\{");
+        String[] lines = bodies[0].split("\n");
+        method = Method.valueOf(lines[0].split(" ")[0]);
         processParams(lines[0]);
         processHost(lines[1]);
         processHeaders(lines);
+        if (bodies.length > 1) {
+            processBody(bodies[1].split("\n"));
+        }
+    }
+
+    private void processBody(String[] bodyData) {
+        body = new Body();
+        Arrays.stream(bodyData)
+                .filter(s -> s.contains(":"))
+                .map(s -> s.replace('"', ' ').replace(',', ' ').trim())
+                .map(s -> s.split(":"))
+                .forEach(splitted -> {
+                    if (splitted[0].trim().equals("name")) {
+                        body.setName(splitted[1]);
+                    } else if (splitted[0].trim().equals("drink")) {
+                        body.setDrink(splitted[1]);
+                    }
+                });
     }
 
     private void processParams(String line) {
         String paramLines = line.split(" ")[1];
         if (!paramLines.equals("/") && paramLines.contains("?")) {
-            Arrays.stream(
-                    paramLines
+            Arrays.stream(paramLines
                             .subSequence(paramLines.indexOf("?") + 1, paramLines.length())
                             .toString()
-                            .split("&")
-            )
+                            .split("&"))
                     .map(s -> s.split("="))
-                    .forEach(strings ->params.put(strings[0], strings[1]));
+                    .forEach(strings -> params.put(strings[0], strings[1]));
         }
     }
 
@@ -70,6 +88,7 @@ public class Request {
                 "host= " + host + ",\n" +
                 "headers= " + headers +
                 "params= " + params +
+                "body= " + body +
                 "\n}";
     }
 }
