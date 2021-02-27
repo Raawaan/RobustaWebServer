@@ -1,5 +1,7 @@
 package com.rawan.robusta.request;
 
+import com.rawan.robusta.response.Response;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -7,8 +9,6 @@ import java.io.OutputStream;
 import static java.lang.System.out;
 
 public class RobustaUtils {
-
-    private static final String OK_RESPONSE = "200 OK";
 
     private RequestMapper requestMapper;
 
@@ -43,12 +43,7 @@ public class RobustaUtils {
 
 
     private void sendMessage(OutputStream out, String message) throws IOException {
-        out.write(("HTTP/1.1 " + RobustaUtils.OK_RESPONSE + "\r\n" +
-                "ContentType: text/html\r\n" +
-                "\r\n" +
-                "<div style=\"text-align:center; margin-top:20%; back\"><h1> <b>" + message + "</b></h1></div>" +
-                "\r\n\r\n" +
-                "\r\n").getBytes());
+        out.write(new Response(message).getResponseInByte());
         out.flush();
     }
 

@@ -5,8 +5,9 @@ import lombok.*;
 @Setter
 @Getter
 @ToString
+@AllArgsConstructor
 @NoArgsConstructor
-class Body {
+public class Body {
     private String name;
     private String drink;
 }

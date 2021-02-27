@@ -1,5 +1,6 @@
 package com.rawan.robusta;
 
+import com.rawan.robusta.request.Body;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import com.rawan.robusta.util.RequestTestUtils;
@@ -19,49 +20,51 @@ public class RobustaAppTest {
 
     @Test
     public void simpleGetRequest() throws Exception {
-        String response = requestTestUtils.sendRequest("GET /");
+        String response = requestTestUtils.sendGetRequest(" /");
         assertTrue(response.contains("200 OK"));
-        assertTrue(response.contains("Boom!"));
+        assertTrue(response.contains("Hello?"));
     }
     @Test
     public void gtRequest() throws Exception {
-        String response = requestTestUtils.sendRequest("GET /hello");
+        String response = requestTestUtils.sendGetRequest(" /hello");
         assertTrue(response.contains("200 OK"));
-        assertTrue(response.contains("Boom!"));
+        assertTrue(response.contains("Hello?"));
     }
 
     @Test
-    public void customGetRequest() throws Exception {
-        String response = requestTestUtils.sendRequest("GET /?custom-message=helloo");
-        Thread.sleep(1000);
+    public void anonymousGetDrinkRequest() throws Exception {
+        String response = requestTestUtils.sendGetRequest(" /?name=Rawan");
         assertTrue(response.contains("200 OK"));
-        assertTrue(response.contains("helloo"));
+        assertTrue(response.contains("hello Rawan you didn't add any drinks yet!"));
+        assertTrue(response.contains("we recommend flat white!"));
+    }
+    @Test
+    public void anonymousGetNameRequest() throws Exception {
+        String response = requestTestUtils.sendGetRequest(" /?drink=flatwhite");
+        assertTrue(response.contains("200 OK"));
+        assertTrue(response.contains("flatwhite is no one choice"));
     }
 
     @Test
     public void postRequest() throws Exception {
-        String response = requestTestUtils.sendRequest("POST /?custom-message=helloo");
-        assertTrue(response.contains("400 Bad request"));
-        assertTrue(response.contains("Sorry we serve 'GET' requests only!"));
+        Body body = new Body("Rawan", "flatwhite");
+        String response = requestTestUtils.sendPostRequest(" /",body);
+        assertTrue(response.contains("200 OK"));
+        assertTrue(response.contains("Thanks"));
     }
 
     @Test
     public void postGetRequest() throws Exception {
-        CountDownLatch countDownLatch = new CountDownLatch(3);
+        CountDownLatch countDownLatch = new CountDownLatch(2);
 
-        startThread("GET /?custom-message=helloo",
+        startThread(" /?drink=flatwhite",
                 "200 OK",
-                "helloo",
+                "flatwhite is no one choice",
                 countDownLatch);
 
-        startThread("GET /",
+        startThread(" /",
                 "200 OK",
-                "Boom!",
-                countDownLatch);
-
-        startThread("POST /?custom-message=helloo",
-                "400 Bad request",
-                "Sorry we serve 'GET' requests only!",
+                "Hello?",
                 countDownLatch);
 
         boolean isCompleted = countDownLatch.await(2000, TimeUnit.MILLISECONDS);
@@ -73,7 +76,7 @@ public class RobustaAppTest {
         new Thread(() -> {
             System.out.println(String.format("Thread %s started", Thread.currentThread().getName()));
             try {
-                String response = requestTestUtils.sendRequest(requestUri);
+                String response = requestTestUtils.sendGetRequest(requestUri);
                 assertTrue(response.contains(responseCode));
                 assertTrue(response.contains(responseMsg));
             } catch (IOException e) {

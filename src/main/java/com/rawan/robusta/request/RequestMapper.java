@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 public class RequestMapper {
     private List<Body> postedData = new ArrayList<>();
 
-    public String mapRequests(Request request) {
+    String mapRequests(Request request) {
         if (request.getMethod() == Method.GET) {
             if (request.getParams().keySet().contains("name")) {
                 return getDrinkByName(request);
