@@ -51,7 +51,7 @@ public class RequestMapper {
             return String.format("%s is no one choice",drink);
 
         }else{
-            return String.format("%s lovers %s",names,drink);
+            return String.format("%s loves %s",names,drink);
         }
     }
 }
