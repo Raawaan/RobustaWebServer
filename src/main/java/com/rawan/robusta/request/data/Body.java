@@ -1,4 +1,4 @@
-package com.rawan.robusta.request;
+package com.rawan.robusta.request.data;
 
 import lombok.*;
 

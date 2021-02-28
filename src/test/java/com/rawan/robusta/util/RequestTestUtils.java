@@ -1,7 +1,7 @@
 package com.rawan.robusta.util;
 
 
-import com.rawan.robusta.request.Body;
+import com.rawan.robusta.request.data.Body;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;

@@ -1,4 +1,4 @@
-package com.rawan.robusta.response;
+package com.rawan.robusta.response.data;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

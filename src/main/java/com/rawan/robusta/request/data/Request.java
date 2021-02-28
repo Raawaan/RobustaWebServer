@@ -1,6 +1,7 @@
-package com.rawan.robusta.request;
+package com.rawan.robusta.request.data;
 
 import lombok.Getter;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;

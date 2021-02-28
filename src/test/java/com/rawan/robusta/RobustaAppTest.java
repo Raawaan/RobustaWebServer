@@ -1,6 +1,6 @@
 package com.rawan.robusta;
 
-import com.rawan.robusta.request.Body;
+import com.rawan.robusta.request.data.Body;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import com.rawan.robusta.util.RequestTestUtils;
@@ -58,12 +58,10 @@ public class RobustaAppTest {
         CountDownLatch countDownLatch = new CountDownLatch(2);
 
         startThread(" /?drink=flatwhite",
-                "200 OK",
                 "flatwhite is no one choice",
                 countDownLatch);
 
         startThread(" /",
-                "200 OK",
                 "Hello?",
                 countDownLatch);
 
@@ -72,12 +70,12 @@ public class RobustaAppTest {
 
     }
 
-    private void startThread(String requestUri, String responseCode, String responseMsg, CountDownLatch countDownLatch) {
+    private void startThread(String requestUri, String responseMsg, CountDownLatch countDownLatch) {
         new Thread(() -> {
             System.out.println(String.format("Thread %s started", Thread.currentThread().getName()));
             try {
                 String response = requestTestUtils.sendGetRequest(requestUri);
-                assertTrue(response.contains(responseCode));
+                assertTrue(response.contains("200 OK"));
                 assertTrue(response.contains(responseMsg));
             } catch (IOException e) {
                 System.out.println(e.getLocalizedMessage());

@@ -1,5 +1,7 @@
 package com.rawan.robusta.request;
 
+import com.rawan.robusta.request.data.Method;
+import com.rawan.robusta.request.data.Request;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.HashMap;
