@@ -12,26 +12,29 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-@RequestHandler(method = Method.GET, url = "/static/index.html")
+@RequestHandler(method = Method.GET, url = "/static/")
 @NoArgsConstructor
 @AllArgsConstructor
 public class StaticContentRequestHandler implements Handler {
     private Request request;
 
-    StringBuilder getFileContent() {
+    private StringBuilder getFileContent() {
         StringBuilder responseBuilder = new StringBuilder();
         ClassLoader classLoader = getClass().getClassLoader();
-
-        File file = new File(classLoader.getResource(request.getUrl().split("/")[2]).getFile());
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+        try {
+            File file = new File(classLoader.getResource(request.getUrl().split("/")[2]).getFile());
+            BufferedReader reader = new BufferedReader(new FileReader(file));
             String line = reader.readLine();
-            while (line != null){
+            while (line != null) {
                 responseBuilder.append(line);
 
                 line = reader.readLine();
             }
+            reader.close();
         } catch (Exception exception) {
-            responseBuilder.append("Error While getting the file");
+            responseBuilder.append(start)
+                    .append("Error While getting the file")
+                    .append(end);
         }
         return responseBuilder;
     }
