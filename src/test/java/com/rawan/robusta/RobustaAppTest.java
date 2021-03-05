@@ -1,12 +1,14 @@
 package com.rawan.robusta;
 
 import com.rawan.robusta.request.data.Body;
+import com.rawan.robusta.util.RequestTestUtils;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import com.rawan.robusta.util.RequestTestUtils;
+
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+
 import static org.junit.Assert.assertTrue;
 
 public class RobustaAppTest {
@@ -14,21 +16,27 @@ public class RobustaAppTest {
     private RequestTestUtils requestTestUtils = new RequestTestUtils();
 
     @BeforeClass
-    public static void setup() {
-        new Thread(() -> RobustaApp.main(new String[]{})).start();
+    public static void setup() throws InterruptedException {
+        new Thread(() -> {
+                RobustaApp.main(new String[]{});
+        }).start();
+        Thread.sleep(5000);
+
     }
 
     @Test
     public void simpleGetRequest() throws Exception {
+        String url = " /";
         String response = requestTestUtils.sendGetRequest(" /");
         assertTrue(response.contains("200 OK"));
-        assertTrue(response.contains("Hello?"));
+        assertTrue(response.contains(String.format("Hello, we don't sever%s",url)));
     }
     @Test
     public void gtRequest() throws Exception {
+        String url = " /hello";
         String response = requestTestUtils.sendGetRequest(" /hello");
         assertTrue(response.contains("200 OK"));
-        assertTrue(response.contains("Hello?"));
+        assertTrue(response.contains(String.format("Hello, we don't sever%s",url)));
     }
 
     @Test
@@ -56,13 +64,14 @@ public class RobustaAppTest {
     @Test
     public void postGetRequest() throws Exception {
         CountDownLatch countDownLatch = new CountDownLatch(2);
+        String url = " /";
 
         startThread(" /?drink=flatwhite",
                 "flatwhite is no one choice",
                 countDownLatch);
 
-        startThread(" /",
-                "Hello?",
+        startThread(url,
+                String.format("Hello, we don't sever%s",url),
                 countDownLatch);
 
         boolean isCompleted = countDownLatch.await(2000, TimeUnit.MILLISECONDS);

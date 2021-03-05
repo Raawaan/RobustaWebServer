@@ -4,9 +4,11 @@ import com.rawan.robusta.request.data.Method;
 import com.rawan.robusta.request.data.Request;
 import org.junit.Before;
 import org.junit.Test;
+
 import java.util.HashMap;
 import java.util.Map;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
 
 public class RequestTest {
     private Request request;

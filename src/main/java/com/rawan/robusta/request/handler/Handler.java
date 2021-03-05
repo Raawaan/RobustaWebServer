@@ -6,10 +6,8 @@ import com.rawan.robusta.response.data.Response;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface RequestHandler {
-
-    List<Body> postedData = new ArrayList<>();
+public interface Handler {
+    public static List<Body> postedData = new ArrayList<>();
 
     Response getResponse();
 }
-

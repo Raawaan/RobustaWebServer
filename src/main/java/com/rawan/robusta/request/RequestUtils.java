@@ -1,10 +1,11 @@
 package com.rawan.robusta.request;
 
 import com.rawan.robusta.request.data.Request;
-import com.rawan.robusta.request.handler.RequestHandler;
+import com.rawan.robusta.request.handler.Handler;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 import static java.lang.System.out;
 
@@ -16,7 +17,7 @@ public class RequestUtils {
         this.requestMapper = requestMapper;
     }
 
-    public RequestHandler getRequestHandler(BufferedReader in) throws IOException {
+    public Handler getRequestHandler(BufferedReader in) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
 
         StringBuilder requestBuilder = readRequest(in);
 

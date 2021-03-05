@@ -18,6 +18,8 @@ dependencies {
     implementation "org.projectlombok:lombok:${lombokVersion}"
     testImplementation "org.projectlombok:lombok:${lombokVersion}"
     testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
-    
+
+    implementation 'org.reflections:reflections:0.9.11'
+
     testImplementation "junit:junit:4.12" 
 }

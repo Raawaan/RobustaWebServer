@@ -11,6 +11,7 @@ public class Request {
 
     private Method method;
     private String host;
+    private String url;
     private Map<String, String> headers = new HashMap<>();
     private Map<String, String> params = new HashMap<>();
     private Body body;
@@ -23,6 +24,7 @@ public class Request {
         String[] bodies = requestData.split("\\{");
         String[] lines = bodies[0].split("\n");
         method = Method.valueOf(lines[0].split(" ")[0]);
+        url = lines[0].split(" ")[1];
         processParams(lines[0]);
         processHost(lines[1]);
         processHeaders(lines);
