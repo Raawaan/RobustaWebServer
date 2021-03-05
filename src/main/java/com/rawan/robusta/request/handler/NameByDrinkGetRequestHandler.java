@@ -11,12 +11,12 @@ import lombok.NoArgsConstructor;
 import java.util.Optional;
 
 
-@RequestHandler(method = Method.GET,url = "/?name")
+@RequestHandler(method = Method.GET, url = "/?name")
 @NoArgsConstructor
 @AllArgsConstructor
-public class NameByDrinkGetRequestHandler implements Handler{
+public class NameByDrinkGetRequestHandler implements Handler {
 
-    private  Request request;
+    private Request request;
 
     @Override
     public Response getResponse() {
@@ -27,9 +27,8 @@ public class NameByDrinkGetRequestHandler implements Handler{
                 .map(Body::getDrink)
                 .findFirst();
         return optionalDrink
-                .map(drink -> new Response(String.format("%s's drink is%s", name, drink)))
-                .orElseGet(() ->
-                        new Response(String.format("hello %s you didn't add any drinks yet!" +
-                                " So for now we recommend flat white!", name)));
+                .map(drink -> new Response(String.format("%s %s's drink is%s %s", start, name, drink, end)))
+                .orElseGet(() -> new Response(String.format("%s hello %s you didn't add any drinks yet!" +
+                                "So for now we recommend flat white! %s", start, name, end)));
     }
 }

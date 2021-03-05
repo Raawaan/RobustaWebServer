@@ -26,9 +26,9 @@ public class DrinkByNameGetRequestHandler implements Handler {
                 .collect(Collectors.joining(","));
 
         if (names.isEmpty()) {
-            return new Response(String.format("%s is no one choice", drink));
+            return new Response(String.format("%s %s is no one choice %s",start, drink,end));
         } else {
-            return new Response(String.format("%s loves %s", names, drink));
+            return new Response(String.format("%s %s loves %s %s",start, names, drink,end));
         }
     }
 }

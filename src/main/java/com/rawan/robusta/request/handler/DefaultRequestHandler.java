@@ -7,7 +7,7 @@ import com.rawan.robusta.response.data.Response;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-@RequestHandler(method = Method.GET,url = "/")
+@RequestHandler(method = Method.GET,url = "/default")
 @NoArgsConstructor
 @AllArgsConstructor
 public class DefaultRequestHandler implements Handler {
@@ -15,6 +15,7 @@ public class DefaultRequestHandler implements Handler {
 
     @Override
     public Response getResponse() {
-        return new Response(String.format("Hello, we don't sever %s ",request.getUrl()));
+        return new Response(
+        String.format("%s Hello, we don't sever %s %s", start,request.getUrl(),end));
     }
 }

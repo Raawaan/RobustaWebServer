@@ -7,11 +7,11 @@ import com.rawan.robusta.response.data.Response;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-@RequestHandler(method = Method.POST,url = "/")
+@RequestHandler(method = Method.POST, url = "/")
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostRequestHandler implements Handler{
-    private  Request request;
+public class PostRequestHandler implements Handler {
+    private Request request;
 
     @Override
     public Response getResponse() {

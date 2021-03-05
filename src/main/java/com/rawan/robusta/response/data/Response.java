@@ -13,11 +13,11 @@ public class Response {
 
     private String message;
 
-    public byte[] getResponseInByte(){
+    public byte[] getResponseInByte() {
         return ("HTTP/1.1 " + OK_RESPONSE + "\r\n" +
                 "ContentType: text/html\r\n" +
                 "\r\n" +
-                "<div style=\"text-align:center; margin-top:20%; back\"><h1> <b>" + message + "</b></h1></div>" +
+                message +
                 "\r\n\r\n" +
                 "\r\n").getBytes();
     }

@@ -1,5 +1,6 @@
 package com.rawan.robusta.request;
 
+import com.rawan.robusta.request.data.Method;
 import com.rawan.robusta.request.data.Request;
 import com.rawan.robusta.request.handler.DefaultRequestHandler;
 import com.rawan.robusta.request.handler.Handler;
@@ -25,7 +26,8 @@ public class RequestMapper {
         Optional<RequestHandlerDTO> optionalMappingDTO = requestHandlerDTOS
                 .stream()
                 .filter(requestHandlerDTO -> (requestHandlerDTO.getMethod() == request.getMethod() &&
-                        (request.getUrl().contains(requestHandlerDTO.getUrl())))).findFirst();
+                        (request.getUrl().contains(requestHandlerDTO.getUrl()))))
+                .findFirst();
 
         RequestHandlerDTO requestHandlerDTO = optionalMappingDTO.orElse(new RequestHandlerDTO(
                 DefaultRequestHandler.class,
@@ -57,7 +59,7 @@ public class RequestMapper {
                 .collect(Collectors.toList());
     }
 
-    private Set<Class<?>> getAnnotatedClasses(Class<RequestHandler> annotationClass){
+    private Set<Class<?>> getAnnotatedClasses(Class<RequestHandler> annotationClass) {
         Reflections reflections = new Reflections(".*");
         Set<Class<?>> annotated = reflections.getTypesAnnotatedWith(annotationClass);
         return annotated;
